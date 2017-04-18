@@ -8,7 +8,7 @@ apply plugin: 'signing'
 sourceCompatibility = 1.8
 group ="in.ankushs"
 archivesBaseName = "dbip"
-version = '2.0'
+version = '2.0.M1'
 
 
 jar {
@@ -28,6 +28,7 @@ dependencies {
   compile('ch.qos.logback:logback-classic:1.1.4')
   compile('ch.qos.logback:logback-core:1.1.4')
   compile('org.slf4j:slf4j-api:1.7.18')
+  compile('org.mapdb:mapdb:3.0.3')
   testCompile('org.spockframework:spock-core:1.0-groovy-2.4')
   testCompile('org.codehaus.groovy:groovy-all:2.4.5')
 }

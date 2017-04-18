@@ -2,6 +2,8 @@
 A simple to use Java library for the freely available DB-IP [IP address to city dataset](https://db-ip.com/db/download/city).
 **Requires Java 8**
 
+This version was updated by Koo(koo@getswizzle.com) for use storage database using [MapDB](http://www.mapdb.org) library. 
+
 #Before you begin
 The entire dataset is loaded into a [TreeMap](https://docs.oracle.com/javase/8/docs/api/allclasses-noframe.html) . Make sure that you have about **2 GB of Heap space** available to load it.
 
@@ -83,6 +85,24 @@ That's pretty much it.
 #Integrating with Spring Boot.
 Follow the detailed instructions on [this](http://ankushs92.github.io/libraries/2016/05/12/java-db-ip.html) blogpost . You can find the Spring Boot Java-DB-IP project [here](https://github.com/ankushs92/Spring-Boot-DB-IP) .
 
+#For storage database using MapDB
+```java
+// Create repository instance.
+File dbFile = new File("CUSTOM_DB_FILE_PATH.db");
+DbIpRepository repository = new SmallMapDBDbIpRepositoryImpl(dbFile);
+
+// Resource importing process. 
+// If you already built database file completly, this step is not required.
+// It can takes very long time. (over a hour)
+ResourceImporter importer = ResourceImporter.getInstance(repository);
+File gzip = new File("PATH_TO_dbip-city-latest.csv.gz");
+importer.load(gzip);
+
+// Create lookupService instance using exist repository.
+GeoEntityLookupService lookupService = new GeoEntityLookupServiceImpl(repository);
+lookupService.lookup(InetAddresses.forString(ip));
+
+```
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/ankushs92/java-db-ip/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
