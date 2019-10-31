@@ -1,115 +1,53 @@
-apply plugin: 'groovy'
-apply plugin: 'eclipse'
-apply plugin : 'idea'
-apply plugin: 'maven'
-apply plugin: 'signing'
-
-
-sourceCompatibility = 1.8
-group ="in.ankushs"
-archivesBaseName = "dbip"
-version = '2.0.M1'
-
-
-jar {
-    baseName = "Java-DB-IP"
-    manifest {
-        attributes 'Implementation-Title': 'Gradle Quickstart',
-                   'Implementation-Version': version
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.1.6.RELEASE")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.50")
+        classpath('com.github.jengelman.gradle.plugins:shadow:5.1.0')
     }
 }
- 
+
+apply plugin: 'groovy'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'kotlin'
+apply plugin: 'com.github.johnrengelman.shadow'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+group = "co.santainside"
+archivesBaseName = "dbip"
+version = '0.1'
+
+springBoot {
+    mainClassName = "co.santainside.dbip.Application"
+}
+
 repositories {
     mavenCentral()
 }
- 
+
 dependencies {
-  compile('com.google.guava:guava:19.0')
-  compile('ch.qos.logback:logback-classic:1.1.4')
-  compile('ch.qos.logback:logback-core:1.1.4')
-  compile('org.slf4j:slf4j-api:1.7.18')
-  compile('org.mapdb:mapdb:3.0.3')
-  testCompile('org.spockframework:spock-core:1.0-groovy-2.4')
-  testCompile('org.codehaus.groovy:groovy-all:2.4.5')
-}
-test {
-    systemProperties 'property': 'value'
+    compile('com.google.guava:guava:19.0')
+    compile('ch.qos.logback:logback-classic:1.1.4')
+    compile('ch.qos.logback:logback-core:1.1.4')
+    compile('org.slf4j:slf4j-api:1.7.18')
+    compile('org.mapdb:mapdb:3.0.3')
+    compile("org.springframework.boot:spring-boot-starter-web")
+
+    testCompile("junit:junit")
+    testCompile('org.spockframework:spock-core:1.0-groovy-2.4')
+    testCompile('org.codehaus.groovy:groovy-all:2.4.5')
 }
 
-eclipse {
-  classpath {
-     containers.remove('org.eclipse.jdt.launching.JRE_CONTAINER')
-     containers 'org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8'
-  }
+shadowJar {
+    manifest {
+        attributes(
+                'Main-Class': 'co.santainside.dbip.ApplicationKt'
+        )
+    }
 }
-//
-//
-//task javadocJar(type: Jar) {
-//	classifier = 'javadoc'
-//	from javadoc
-//}
-//
-//task sourcesJar(type: Jar) {
-//	classifier = 'sources'
-//	from sourceSets.main.allSource
-//}
-//
-//artifacts {
-//	archives javadocJar, sourcesJar
-//}
-//
-//signing {
-//	sign configurations.archives
-//}
-//
-//
-//uploadArchives {
-//    repositories {
-//	   mavenDeployer{
-//		   beforeDeployment{MavenDeployment deployment->
-//			   signing.signPom(deployment)
-//		   }
-//
-//		   repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2") {
-//			   authentication(userName: ossrhUsername, password: ossrhPassword)
-//			 }
-//
-//		   pom{
-//			   project{
-//				   name 'Java-DbIP'
-//				   description 'A Java library for the DB-IP free city dataset '
-//				   packaging 'jar'
-//				   url 'https://github.com/ankushs92/Java-DB-IP'
-//			       inceptionYear '2016'
-//
-//				   scm {
-//					   connection 'scm:git:git@github.com:ankushs92/Java-DB-IP.git'
-//					   developerConnection 'scm:git:git@github.com:ankushs92/Java-DB-IP.git'
-//					   url 'git@github.com:ankushs92/Java-DB-IP.git'
-//					 }
-//
-//				   licenses {
-//					   license {
-//						 name 'The MIT License'
-//						 url 'https://github.com/ankushs92/Java-DB-IP/blob/master/LICENSE.md'
-//					   }
-//				   }
-//				   developers {
-//					   developer {
-//						 name 'Ankush Sharma'
-//						 email 'ankush20058@gmail.com'
-//					   }
-//					}
-//				   issueManagement{
-//					   system 'Github'
-//					   url 'https://github.com/ankushs92/Java-DB-IP/issues'
-//
-//				   }
-//			   }
-//		   }
-//	       flatDir {
-//	           dirs 'repos'
-//	   }
-//    }
-//  }
-//}

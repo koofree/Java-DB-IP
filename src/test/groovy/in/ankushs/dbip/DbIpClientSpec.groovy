@@ -8,9 +8,9 @@ import spock.lang.Specification
 class DbIpClientSpec extends Specification {
 	def client
 	def setup(){
-		client = new DbIpClient(new File("/Users/Ankush/Downloads/dbip-city-2017-02.csv.gz"))
+		client = new DbIpClient(new File("/Users/koo/Works/tools/Java-DB-IP/dbip-city-lite-2019-10.csv.gz"))
 	}
-	
+
 	def "Pass a valid Ip.All should work fine"(){
 		when : "Call the client"
 			def ip = "216.159.232.248"
@@ -22,7 +22,7 @@ class DbIpClientSpec extends Specification {
 		geoEntity.province == 'Ohio'
 
 	}
-	
+
 	def "Pass invalid Ip.Expect InvalidIPException to be thrown"(){
 		given : "Some ip"
 			def ip = "invalidIp"

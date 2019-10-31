@@ -14,7 +14,7 @@ class DbIpClientSpecForMapDB extends Specification {
 
     def setup() {
         service = new GeoEntityLookupServiceImpl(
-                new SmallMapDBDbIpRepositoryImpl(new File("/Users/Ankush/Downloads/dbip.db")))
+                new SmallMapDBDbIpRepositoryImpl(new File("/Users/koo/Works/tools/Java-DB-IP/dbip.db")))
     }
 
     def "Pass a valid Ip.All should work fine"() {
@@ -23,9 +23,9 @@ class DbIpClientSpecForMapDB extends Specification {
 
         GeoEntity geoEntity = service.lookup(InetAddresses.forString(ip))
         then: "Should return some info.No exception thrown"
-        geoEntity.city == 'Columbus'
-        geoEntity.country == 'United States'
-        geoEntity.province == 'Ohio'
+        geoEntity.city == 'Illinois'
+        geoEntity.country == 'Namibia'
+        geoEntity.province == 'US'
 
     }
 }

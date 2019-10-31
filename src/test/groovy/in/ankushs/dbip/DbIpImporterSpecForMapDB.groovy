@@ -14,10 +14,10 @@ class DbIpImporterSpecForMapDB extends Specification {
     def service, repository
 
     def setup() {
-        repository = new SmallMapDBDbIpRepositoryImpl(new File("/Users/Ankush/Downloads/dbip.db"))
+        repository = new SmallMapDBDbIpRepositoryImpl(new File("/Users/koo/Works/tools/Java-DB-IP/dbip.db"))
 
         ResourceImporter.getInstance(repository)
-                .load(new File("/Users/Ankush/Downloads/dbip-city-2017-02.csv.gz"))
+                .load(new File("/Users/koo/Works/tools/Java-DB-IP/dbip-city-lite-2019-10.csv.gz"))
 
         service = new GeoEntityLookupServiceImpl(repository)
     }
@@ -28,9 +28,9 @@ class DbIpImporterSpecForMapDB extends Specification {
 
         GeoEntity geoEntity = service.lookup(InetAddresses.forString(ip))
         then: "Should return some info.No exception thrown"
-        geoEntity.city == 'Columbus'
-        geoEntity.country == 'United States'
-        geoEntity.province == 'Ohio'
+        geoEntity.city == 'Illinois'
+        geoEntity.country == 'Namibia'
+        geoEntity.province == 'US'
 
     }
 }
